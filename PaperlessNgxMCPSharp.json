@@ -1,0 +1,59 @@
+{
+  "Paperless": {
+    "BaseUrl": "http://localhost:8000/",
+    "ApiToken": "",
+    "Username": null,
+    "Password": null,
+    "ReadOnly": true,
+    "EnableUploads": true,
+    "EnableDownloads": true,
+    "EnableMetadataManagement": true,
+    "AllowDelete": false,
+    "DownloadDirectory": null,
+    "MaxInlineContentBytes": 65536,
+    "MaxInlineBinaryBytes": 2000000,
+    "DefaultPageSize": 25,
+    "MaxPages": 5,
+    "RequestTimeoutSeconds": 100,
+    "UserAgent": "PaperlessNgxMCPSharp",
+    "AllowInvalidCertificate": false
+  },
+  "Server": {
+    "Host": "localhost",
+    "Port": 5708,
+    "Path": "/mcp",
+    "WindowsServiceName": "PaperlessNgxMCPSharp",
+    "Password": ""
+  },
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information",
+        "System": "Warning"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}"
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "logs/paperlessmcp-.log",
+          "rollingInterval": "Day",
+          "retainedFileCountLimit": 14,
+          "fileSizeLimitBytes": 52428800,
+          "rollOnFileSizeLimit": true,
+          "shared": true,
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}"
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithThreadId" ]
+  }
+}
